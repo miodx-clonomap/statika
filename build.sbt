@@ -1,6 +1,7 @@
 name          := "statika"
-organization  := "ohnosequences"
+organization  := "clonomap"
 description   := "Managing dependencies"
+version       := "3.0.0"
 
 bucketSuffix := "era7.com"
 
