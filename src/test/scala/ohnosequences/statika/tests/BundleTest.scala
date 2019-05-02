@@ -1,4 +1,4 @@
-package ohnosequences.statika.tests
+  package ohnosequences.statika.tests
 
 import ohnosequences.statika._
 
