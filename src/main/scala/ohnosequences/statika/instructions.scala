@@ -1,6 +1,9 @@
 package ohnosequences.statika
 
 import java.io.File
+
+import org.slf4j.{Logger, LoggerFactory}
+
 import sys.process._
 import util.Try
 
@@ -122,11 +125,15 @@ class SimpleInstructions[O](r: File => Result[O]) extends Instructions[O] {
 
 
 object LazyTry {
+  def logger: Logger = LoggerFactory.getLogger(getClass)
   def apply[T](t: => T): Instructions[T] = new Instructions[T] {
 
     def run(workingDir: File): Result[Out] = Try(t) match {
-      case util.Success(output) => Success[T](this.toString, output)
-      case util.Failure(e) => Failure[T](e.getMessage)
+      case util.Success(output) =>
+        Success[T](this.toString, output)
+      case util.Failure(e) =>
+        logger.warn("Failure in LazyTry", e)
+        Failure[T](e.getMessage)
     }
   }
 }
